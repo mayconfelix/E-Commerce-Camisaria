@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Consulta de Camisa</title>
+</h:head>
+<h:body>
+	<h:messages 
+		errorStyle="color:red" 
+		warnStyle="color:orange" 
+		infoStyle="color:green"
+		globalOnly="false"/>
+		
+	<h1>.:Consulta de Camisa:.</h1>
+	<h:form>
+		<h:panelGrid columns="3">
+			<h:selectOneMenu value="#{consultaCamisaController.tipoFiltro}">
+			   <f:selectItem itemValue="1" itemLabel="Modelo" />
+			   <f:selectItem itemValue="2" itemLabel="Marca" />                   
+			</h:selectOneMenu>
+			<h:panelGroup>
+				<h:inputText 
+					value="#{consultaCamisaController.filtro}" />
+			</h:panelGroup>
+			<h:commandButton value="Pesquisar"
+				actionListener="#{consultaCamisaController.pesquisar}" />
+			<h:commandButton value="+ Nova Camisa"
+				action="#{consultaCamisaController.novaCamisa}" />
+		
+		</h:panelGrid>
+			
+	</h:form>
+	<h:form id="formDataTable">
+		<h:dataTable id="dataTable" value="#{consultaCamisaController.listaCamisa}" 
+					 var="obj">
+			   <h:column>
+			      <f:facet name="header"> Modelo |</f:facet>
+			      <h:outputLabel value="#{obj.modelo}"/>
+			   </h:column>
+			    <h:column>
+			      <f:facet name="header"> Marca |</f:facet>
+			      <h:outputLabel value="#{obj.marca}"/>
+			   </h:column>
+			    <h:column>
+			      <f:facet name="header"> Cor |</f:facet>
+			      <h:outputLabel value="#{obj.cor}"/>
+			   </h:column>
+			  <h:column>
+			      <f:facet name="header"> Tamanho |</f:facet>
+			      <h:outputLabel value="#{obj.tamanho}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header"> Preço |</f:facet>
+			      <h:outputLabel value="#{obj.preco}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header"> Estoque |</f:facet>
+			      <h:outputLabel value="#{obj.estoque}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header"> Ação |</f:facet>
+			      <h:commandLink value="Editar" 
+			      		action="#{consultaCamisaController.editar(obj)}"/>
+			   </h:column>		   
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

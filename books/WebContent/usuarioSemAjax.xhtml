@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Cadastro de Usuário</title>
+</h:head>
+<h:body>
+	<h:messages style="color:red;margin:8px;" />
+	<h1>.:Cadastro de Usuário:.</h1>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Nome:" />
+			<h:inputText value="#{usuarioController.usuario.nome}" />
+			<h:outputLabel value="Data de Nascimento:" />
+			<h:inputText value="#{usuarioController.usuario.dataNascimento}">
+				<f:convertDateTime pattern="dd/MM/yyyy" 
+								   type="localDate"/>
+			</h:inputText>
+			<h:outputLabel value="Login:" />
+			<h:inputText value="#{usuarioController.usuario.login}" />
+			<h:outputLabel value="Senha:" />
+			<h:inputSecret 
+				value="#{usuarioController.usuario.senha}" 
+				required="true"
+				requiredMessage="A senha deve ser informada."/>
+			<h:outputLabel value="E-mail:" />
+			<h:inputText value="#{usuarioController.usuario.email}" />
+			<h:outputLabel value="Tipo de Usuário:" />
+			<h:selectOneMenu 
+				value="#{usuarioController.usuario.tipoUsuario}">
+				<f:selectItem itemLabel="Selecione um tipo..."/>
+				<f:selectItems 
+					value="#{usuarioController.listaTipoUsuario}"
+							var="tipo" 
+							itemLabel="#{tipo.label}"/>
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<h:commandButton value="Incluir"
+			disabled="#{usuarioController.usuario.id != null}"
+			actionListener="#{usuarioController.incluir}" />
+		<h:commandButton value="Alterar"
+			disabled="#{usuarioController.usuario.id == null}"
+			actionListener="#{usuarioController.alterar}" />
+		<h:commandButton value="Excluir"
+			disabled="#{usuarioController.usuario.id == null}"
+			actionListener="#{usuarioController.remover}" />
+		<h:commandButton value="Limpar" 
+			actionListener="#{usuarioController.limpar}"/>		
+	</h:form>
+	<h:form>
+		<h:dataTable value="#{usuarioController.listaUsuario}" 
+					 var="obj">
+			   <h:column>            
+			      <f:facet name="header">Id</f:facet>            
+			      <h:outputLabel value="#{obj.id}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header">Nome</f:facet>
+			      <h:outputLabel value="#{obj.nome}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header">Data de Nascimento</f:facet>
+			      <h:outputLabel value="#{obj.dataNascimento}">
+	      				<f:convertDateTime pattern="dd-MM-yyyy" 
+						   type="localDate"/>
+			      
+			      </h:outputLabel>
+			   </h:column>			   
+			   <h:column>
+			      <f:facet name="header">Login</f:facet>
+			      <h:outputLabel value="#{obj.login}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header">Senha</f:facet>
+			      <h:outputLabel value="#{obj.senha}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header">E-mail</f:facet>
+			      <h:outputLabel value="#{obj.email}"/>
+			   </h:column>	
+			   <h:column>
+			      <f:facet name="header">Tipo de Usuário</f:facet>
+			      <h:outputLabel value="#{obj.tipoUsuario.label}"/>
+			   </h:column>				   
+			   <h:column>
+			      <f:facet name="header">Ação</f:facet>
+			      <h:commandLink value="Editar" 
+			      		actionListener="#{usuarioController.editar(obj)}"/>
+			   </h:column>		   
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,85 @@
+ <!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Cadastro de Camisa</title>
+</h:head>
+<h:body>
+	<h:messages 
+		errorStyle="color:red" 
+		warnStyle="color:orange" 
+		infoStyle="color:green"
+		globalOnly="false"/>
+		
+	<h1>.:Cadastro de Camisa:.</h1>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Modelo:" />
+			<h:panelGroup>
+				<h:inputText 
+					id="itModelo" 
+					value="#{camisaController.entity.modelo}" />
+				<h:message for="itDescricao" style="color:red"/>
+			</h:panelGroup>
+			
+			<h:outputLabel value="Marca:" />			
+			<h:panelGroup>
+				<h:inputText 
+					id="itMaeca" 
+					value="#{camisaController.entity.marca}" />
+				<h:message for="itIsbn" style="color:red"/>
+			</h:panelGroup>
+
+			<h:outputLabel value="Cor:" />			
+			<h:panelGroup>
+				<h:inputText 
+					id="itCor" 
+					value="#{camisaController.entity.cor}" />
+				<h:message for="itIsbn" style="color:red"/>
+			</h:panelGroup>
+			
+			<h:outputLabel value="Tamanho:" />			
+			<h:panelGroup>
+				<h:inputText 
+					id="itTamanho" 
+					value="#{camisaController.entity.tamanho}" />
+				<h:message for="itIsbn" style="color:red"/>
+			</h:panelGroup>
+			
+			<h:outputLabel value="Preço:" />
+			<h:panelGroup>
+				<h:inputText 
+					id="itPreco" 
+					value="#{camisaController.entity.preco}" />
+				<h:message for="itPreco" style="color:red"/>
+			</h:panelGroup>
+			
+			<h:outputLabel value="Estoque:" />			
+			<h:panelGroup>
+				<h:inputText 
+					id="itEstoque" 
+					value="#{camisaController.entity.estoque}" />
+				<h:message for="itEstoque" style="color:red"/>
+			</h:panelGroup>									
+
+		
+		</h:panelGrid>
+		<h:commandButton value="Incluir"
+			disabled="#{camisaController.entity.id != null}"
+			actionListener="#{camisaController.incluir}" />
+		<h:commandButton value="Alterar"
+			disabled="#{camisaController.entity.id == null}"
+			actionListener="#{camisaController.alterar}" />
+		<h:commandButton value="Excluir"
+			disabled="#{camisaController.entity.id == null}"
+			actionListener="#{camisaController.remover}" >
+			<f:ajax execute="@this" render="@form formDataTable"/>
+		</h:commandButton>
+		<h:commandButton value="Limpar" 
+			actionListener="#{camisaController.limpar}">
+			<f:ajax execute="@this" render="@form"/>
+		</h:commandButton>		
+	</h:form>
+</h:body>
+</html>
